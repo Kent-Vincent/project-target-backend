@@ -10,7 +10,7 @@ class Accounts(APIView):
 
     def get(self, request, format=None):
         content = {
-            'user': str(request.user),
+            'user': str(request.user.email),
             'auth': str(request.auth),
         }
         return Response(content)
