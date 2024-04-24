@@ -1,6 +1,8 @@
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
@@ -24,3 +26,12 @@ class AuthView(ModelViewSet):
     def auth(self, request, *args, **kwargs):
         serializer = self.get_serializer(request.user)   
         return Response(serializer.data)
+    
+
+class RegisterUserView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
