@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
+
 class LoginView(GenericViewSet):
 
     def login(self, request, *args, **kwargs):
