@@ -15,3 +15,7 @@ class TicketsCreate(generics.CreateAPIView):
             self.perform_create(serializer)
             return Response({"message": "Ticket created successfully."}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class TicketDisplay():
+    queryset = Tickets.objects.all()
+
