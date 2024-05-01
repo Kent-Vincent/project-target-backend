@@ -9,6 +9,7 @@ class Tickets(models.Model):
         ('MEDIUM', 'Medium'),
         ('HIGH', 'High'),
     ]
+    # add title
     ticket_name = models.CharField(max_length=100)  
     description = models.TextField()
     attachments = models.FileField(null=True, upload_to='assets/attachment')
