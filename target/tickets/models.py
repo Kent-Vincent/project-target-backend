@@ -9,7 +9,7 @@ class Tickets(models.Model):
         ('MEDIUM', 'Medium'),
         ('HIGH', 'High'),
     ]
-    # add title
+    ticket_title = models.CharField(max_length=100, default='') 
     ticket_name = models.CharField(max_length=100)  
     description = models.TextField()
     attachments = models.FileField(null=True, upload_to='assets/attachment')
@@ -26,3 +26,6 @@ class Tickets(models.Model):
     class Meta:
         verbose_name = "Ticket"
         verbose_name_plural = "Tickets"
+
+    def __str__(self):
+        return self.ticket_title
