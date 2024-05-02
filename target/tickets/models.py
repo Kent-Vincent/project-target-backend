@@ -9,6 +9,7 @@ class Tickets(models.Model):
         ('MEDIUM', 'Medium'),
         ('HIGH', 'High'),
     ]
+    ticket_ID = models.BigAutoField(primary_key=True)
     ticket_title = models.CharField(max_length=100, default='') 
     ticket_name = models.CharField(max_length=100)  
     description = models.TextField()
