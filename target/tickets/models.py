@@ -9,7 +9,15 @@ class Tickets(models.Model):
         ('MEDIUM', 'Medium'),
         ('HIGH', 'High'),
     ]
+    TICKET_CATEGORY = [
+        ('TODO', 'To Do'),
+        ('DOING', 'Doing'),
+        ('BLOCKED', 'Blocked'),
+        ('FOR REVIEW', 'For Review'),
+        ('DONE', 'Done'),
+    ]
     ticket_ID = models.BigAutoField(primary_key=True)
+    ticket_category = models.CharField(max_length=50, choices=TICKET_CATEGORY, default='To Do')
     ticket_title = models.CharField(max_length=100, default='') 
     ticket_name = models.CharField(max_length=100)  
     description = models.TextField()
