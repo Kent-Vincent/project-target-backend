@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Workspace
+from .models import Workspace, Stage
 
 admin.site.register(Workspace)
-
-# Register your models here.
+admin.site.register(Stage)
