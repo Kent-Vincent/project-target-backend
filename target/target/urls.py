@@ -12,6 +12,7 @@ urlpatterns = [
         path('auth/', include('rest_framework.urls')),
         path('users/', include('users.urls')),
         path('tickets/', include('tickets.urls')),
+        path('workspace/', include('workspace.urls')),
     ])),
 ]
 

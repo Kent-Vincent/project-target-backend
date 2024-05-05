@@ -1,9 +1,8 @@
 from rest_framework import serializers
 from .models import Workspace, Stage
-from rest_framework import serializers
 
 
-class TicketSerializer(serializers.ModelSerializer):
+class WorkspaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workspace
         fields = '__all__'
