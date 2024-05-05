@@ -1,4 +1,5 @@
 from django.db import models
+from workspace.models import Stage
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Tickets(models.Model):
     ]
     # blank fields
     # description, attachments, coverphoto
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     ticket_ID = models.BigAutoField(primary_key=True)
     ticket_title = models.CharField(max_length=100, default='') 
     ticket_name = models.CharField(max_length=100,)  
