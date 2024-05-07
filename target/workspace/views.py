@@ -19,6 +19,18 @@ def current_workspace(request):
     else:
         return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
     
+@api_view(['POST'])
+def create_workspace(request):
+    if request.user.is_authenticated:
+        serializer = WorkspaceSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.validated_data['users'] = [request.user.users_ID]
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+    
 @api_view(['GET'])
 def current_stage(request):
     if request.user.is_authenticated:
