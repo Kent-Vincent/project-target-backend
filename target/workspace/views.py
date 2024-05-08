@@ -19,6 +19,21 @@ def current_workspace(request):
     else:
         return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
     
+@api_view(['GET'])
+def get_workspace_by_id(request, workspace_ID):
+    if request.user.is_authenticated:
+        try:
+            workspace = Workspace.objects.filter(users=request.user, workspace_ID=workspace_ID).first()
+            if workspace:
+                serializer = WorkspaceSerializer(workspace)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Workspace not found for this user'}, status=status.HTTP_404_NOT_FOUND)
+        except Workspace.DoesNotExist:
+            return Response({'error': 'Workspace does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+    
 @api_view(['POST'])
 def create_workspace(request):
     if request.user.is_authenticated:
