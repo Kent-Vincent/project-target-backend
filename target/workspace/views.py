@@ -8,9 +8,9 @@ from workspace.serializers import WorkspaceSerializer, StageSerializer
 def current_workspace(request):
     if request.user.is_authenticated:
         try:
-            workspace = Workspace.objects.filter(users=request.user).first()
+            workspace = Workspace.objects.filter(users=request.user)
             if workspace:
-                serializer = WorkspaceSerializer(workspace)
+                serializer = WorkspaceSerializer(workspace, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Workspace not found for this user'}, status=status.HTTP_404_NOT_FOUND)
