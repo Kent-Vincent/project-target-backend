@@ -10,6 +10,7 @@ class TicketsCreate(generics.CreateAPIView):
     serializer_class = TicketSerializer
 
     def create(self, request, *args, **kwargs):
+        request.data['stage'] = request.data.get('stages_id')
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             self.perform_create(serializer)
