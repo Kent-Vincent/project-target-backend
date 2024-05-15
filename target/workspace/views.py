@@ -62,6 +62,27 @@ def get_stages_by_workspace(request, workspace_id):
     else:
         return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
+@api_view(['POST'])
+def create_stage(request, workspace_ID):
+    if request.user.is_authenticated:
+        try:
+            # Assuming you have a Workspace model with a workspace_ID field
+            workspace = Workspace.objects.get(users=request.user, workspace_ID=workspace_ID)
+            # Assuming you have a Stage model with appropriate fields
+            stage_data = {
+                'workspace': workspace.id,  # Assuming the workspace field is a ForeignKey
+                # Add other fields here based on your Stage model
+            }
+            serializer = StageSerializer(data=stage_data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Workspace.DoesNotExist:
+            return Response({'error': 'Workspace not found for this user'}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
     
 
   
