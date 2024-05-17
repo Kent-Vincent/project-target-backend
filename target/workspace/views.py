@@ -52,7 +52,7 @@ def get_stages_by_workspace(request, workspace_id):
         try:
             workspace = Workspace.objects.filter(users=request.user, workspace_ID=workspace_id).first()
             if workspace:
-                stages = Stage.objects.filter(workspace=workspace).all()
+                stages = Stage.objects.filter(workspace=workspace).prefetch_related('tickets').all()
                 serializer = StageSerializer(stages, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:

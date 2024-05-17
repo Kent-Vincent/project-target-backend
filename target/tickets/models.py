@@ -7,7 +7,7 @@ from workspace.models import Stage
 class Tickets(models.Model):
     # blank fields
     # description, attachments, coverphoto
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE, related_name='tickets')
     ticket_ID = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=100, default='') 
     description = models.TextField(blank=True, null=True)
